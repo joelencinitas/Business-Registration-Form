@@ -1,0 +1,669 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<style type="text/css">
+    body
+    {
+        font-size: 18px;
+    }
+    .formlabel {
+        width: 25%;
+        font-size: 18px;
+        text-align: right;
+        vertical-align: middle;
+        float: left;
+    }
+
+    .formfield {
+        width: 70%;
+        text-align: left;
+        font-size: 18px;
+        padding-left: 15px;
+        float: left;
+    }
+
+    .clear {
+        clear: left;
+        line-height: 15px;
+    }
+    .myInput{
+        width: 350px;
+        height: 30px;
+        font-size: 18px;
+    }
+
+    .myInput[placeholder]
+    {
+        line-height: 30px;
+        font-size: 18px;
+    }
+    input[type=radio]
+    {
+        zoom: 1.5;
+    }
+    input[type=checkbox]
+    {
+        zoom: 1.5;
+    }
+    .input-validation-error {
+        border: 1px solid #ff0000;
+    }
+    
+</style>
+
+<div class="top_container">
+    <div class="mainContent">
+        <div style="text-align: center; font-size: 18px;">
+            <h1 style="font-size: 26px; ">BUSINESS REGISTRATION APPLICATION</h1>
+            <b>$36 Processing Fee</b> ($35 Business Registration Fee + $1 SB1186 State Mandated Fee) The City of Encinitas does not have a business "license" program.  The Business Registration is used in lieu of a licensing program. Annual renewals are $21 ($20 business registration fee + $1 SB1186 State Mandated Fee) <b>*If using a DBA, a Fictitious Name Statement must be filed with the County Clerk, PRIOR to applying for a Business Registration. For questions regarding this form please contact us at 760-633-2606.</b>
+        </div>
+
+        <div style="line-height: 30px;">&nbsp;</div>  
+        
+        <div class="formlabel">&nbsp;</div>  
+        <div class="formfield" style="color: red">@Html.ValidationSummary()</div>
+        <div class="clear">&nbsp;</div>
+        
+        <form method="post" action="/Home/ProcessForm" id="formSubmit" name="formSubmit">
+            <div class="formlabel">Company Name:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("CompanyName") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="CompanyName" id="CompanyName" value="@Model.CompanyName" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="CompanyName" id="CompanyName" value="@Model.CompanyName" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Company Type:</div>
+            <div class="formfield">
+                
+                    @if(Html.ValidationMessage("CompanyType") != null && ViewBag.PostBack == 1)
+                    {
+                        @: <select name="CompanyType" style="width: 350px; height: 30px;" class="input-validation-error" >
+                    }
+                    else
+                    {
+                        @: <select name="CompanyType" style="width: 350px; height: 30px;" >
+                    }
+                    <option value="0">-- Select One --</option>
+                    <option value="Corporation"
+                    @if(Model.CompanyType == "Corporation")
+                    {
+                        @: selected ="selected"
+                    } >Corporation</option>
+                    <option value="Partnership"
+                    @if(Model.CompanyType == "Partnership")
+                    {
+                        @: selected="selected"
+                    } >Partnership</option>
+                    <option value="Sole Proprietorship"
+                    @if (Model.CompanyType == "Sole Proprietorship")
+                    {
+                        @: selected="selected"
+                    } >Sole Proprietorship</option>
+                    <option value="Trust"
+                    @if(Model.CompanyType == "Trust")
+                    {
+                        @: selected="selected"
+                    } >Trust</option>
+                </select>
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Street Address:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("StreetAddress") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="StreetAddress" id="StreetAddress" value="@Model.StreetAddress" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="StreetAddress" id="StreetAddress" value="@Model.StreetAddress" class="myInput" />
+            }   
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">City:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("City") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="City" id="City" value="@Model.City" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="City" id="City" value="@Model.City" class="myInput" />
+            }
+            
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">State:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("State") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="State" id="State" value="@Model.State" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="State" id="State" value="@Model.State" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Zip Code:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("ZipCode") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="ZipCode" id="ZipCode" value="@Model.ZipCode" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="ZipCode" id="ZipCode" value="@Model.ZipCode" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Business Email Address:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("BusinessEmailAddress") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="BusinessEmailAddress" id="BusinessEmailAddress" value="@Model.BusinessEmailAddress" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="BusinessEmailAddress" id="BusinessEmailAddress" value="@Model.BusinessEmailAddress" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Business Phone:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("BusinessPhone") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="BusinessPhone" id="BusinessPhone" value="@Model.BusinessPhone" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="BusinessPhone" id="BusinessPhone" value="@Model.BusinessPhone" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Business Description:</div>
+            <div class="formfield"><input type="text" name="BusinessDescription" id="BusinessDescription" value="@Model.BusinessDescription" class="myInput" /></div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Contact Preference:</div>
+            <div class="formfield"><input type="radio" name="BusinessContactPreference" id="BusinessContactPreference" value="Email"
+                                          @if(Model.BusinessContactPreference == "Email")
+                                          { 
+                                              @:checked="checked" 
+                                          } /> Email &nbsp;&nbsp;&nbsp; <input type="radio" name="BusinessContactPreference" id="BusinessContactPreference" value="Mail" 
+                                          @if(Model.BusinessContactPreference =="Mail")
+                                          {
+                                              @:checked="checked"
+                                          } /> Mail</div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">DBA (Fictitious Name):</div>
+            <div class="formfield"><input type="text" name="DBA" id="DBA" value="@Model.DBA" class="myInput" /></div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Home Based Business?:</div>
+            <div class="formfield"><input type="radio" name="HomeBased" id="HomeBased" value="Yes"
+                                          @if(Model.HomeBased =="Yes")
+                                          {
+                                              @:checked="checked"
+                                          } /> Yes&nbsp;&nbsp;&nbsp;<input type="radio" name="HomeBased" id="HomeBased" value="No" 
+                                          @if(Model.HomeBased == "No")
+                                          {
+                                              @:checked="checked"
+                                          } /> No </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Is this a Rental Booth?:</div>
+            <div class="formfield"><input type="radio" name="RentalBooth" id="RentalBooth" value="Yes" 
+                                          @if(Model.RentalBooth == "Yes")
+                                          {
+                                              @:checked="checked"
+                                          } /> Yes&nbsp;&nbsp;&nbsp;<input type="radio" name="RentalBooth" id="RentalBooth" value="No" 
+                                          @if(Model.RentalBooth == "No")
+                                          {
+                                              @:checked="checked"
+                                          } /> No</div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">EIN #:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("EIN1") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="EIN1" id="EIN1" maxlength="2" value="@Model.EIN1" style="height:30px; font-size:18px; width: 25px; border: 1px solid #ff0000;" />
+            }
+            else
+            {
+                <input type="text" name="EIN1" id="EIN1" maxlength="2" value="@Model.EIN1" style="height:30px; font-size:18px; width: 25px;" />
+            } 
+            - 
+            @if (Html.ValidationMessage("EIN2") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="EIN2" id="EIN2" maxlength="7" value="@Model.EIN2" style="height:30px; font-size:18px; width: 75px; border: 1px solid #ff0000;" />
+            }
+            else
+            {
+                <input type="text" name="EIN2" id="EIN2" maxlength="7" value="@Model.EIN2" style="height:30px; font-size:18px; width: 75px;" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Date Opened:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("DateOpenedMonth") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="DateOpenedMonth" id="DateOpenedMonth" maxlength="2" value="@Model.DateOpenedMonth" style="height:30px; font-size:18px; width: 25px; border: 1px solid #ff0000;" /> @:-  
+                            }
+            else
+            {
+                <input type="text" name="DateOpenedMonth" id="DateOpenedMonth" maxlength="2" value="@Model.DateOpenedMonth" style="height:30px; font-size:18px; width: 25px;" /> @:-  
+            }
+            @if (Html.ValidationMessage("DateOpenedYear") != null && ViewBag.PostBack == 1)
+            { 
+                <input type="text" name="DateOpenedYear" id="DateOpenedYear" maxlength="4" value="@Model.DateOpenedYear" style="height:30px; font-size:18px; width: 50px; border: 1px solid #ff0000;" />  @:e.g. mm - yyyy
+            }
+            else
+            {
+                <input type="text" name="DateOpenedYear" id="DateOpenedYear" maxlength="4" value="@Model.DateOpenedYear" style="height:30px; font-size:18px; width: 50px;" />  @:e.g. mm - yyyy
+            }                                                                                                                                                                    
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Website:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("Website") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="Website" id="Website" value="@Model.Website" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="Website" id="Website" value="@Model.Website" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Non Profit 501(c)(3)?:</div>
+            <div class="formfield"><input type="radio" name="NonProfit" id="NonProfit" value="Yes" 
+                                          @if(Model.NonProfit == "Yes")
+                                          {
+                                              @:checked="checked"
+                                          } /> Yes &nbsp;&nbsp;&nbsp; <input type="radio" name="NonProfit" id="NonProfit" value="No" 
+                                          @if(Model.NonProfit == "No")
+                                          {
+                                              @:checked="checked"
+                                          } /> No</div>
+            <div class="clear">&nbsp;</div>
+
+            <p>If mailing address is different from business location address, complete this section</p>
+
+            <div class="formlabel">Street:</div>
+            <div class="formfield"><input type="text" name="MailingAddress" id="MailingAddress" value="@Model.MailingAddress" class="myInput" /></div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">City:</div>
+            <div class="formfield"><input type="text" name="MailingCity" id="MailingCity" value="@Model.MailingCity" class="myInput" /></div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">State:</div>
+            <div class="formfield"><input type="text" name="MailingState" id="MailingState" value="@Model.MailingState" class="myInput" /></div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Zip Code:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("MailingZipCode") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="MailingZipCode" id="MailingZipCode" value="@Model.MailingZipCode" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="MailingZipCode" id="MailingZipCode" value="@Model.MailingZipCode" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <h1>Business Owner Contact Info</h1>
+
+            <div class="formlabel">First Name:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("OwnerFirstName") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="OwnerFirstName" id="OwnerFirstName" value="@Model.OwnerFirstName" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="OwnerFirstName" id="OwnerFirstName" value="@Model.OwnerFirstName" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Middle Name:</div>
+            <div class="formfield"><input type="text" name="OwnerMiddleName" id="OwnerMiddleName" value="@Model.OwnerMiddleName" class="myInput" /></div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Last Name:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("OwnerLastName") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="OwnerLastName" id="OwnerLastName" value="@Model.OwnerLastName" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="OwnerLastName" id="OwnerLastName" value="@Model.OwnerLastName" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Title:</div>
+            <div class="formfield"><input type="text" name="OwnerTitle" id="OwnerTitle" value="@Model.OwnerTitle" class="myInput" /></div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Email:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("OwnerEmail") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="OwnerEmail" id="OwnerEmail" value="@Model.OwnerEmail" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="OwnerEmail" id="OwnerEmail" value="@Model.OwnerEmail" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Business Phone:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("OwnerBusinessPhone") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="OwnerBusinessPhone" id="OwnerBusinessPhone" value="@Model.OwnerBusinessPhone" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="OwnerBusinessPhone" id="OwnerBusinessPhone" value="@Model.OwnerBusinessPhone" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Home Phone:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("OwnerHomePhone") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="OwnerHomePhone" id="OwnerHomePhone" value="@Model.OwnerHomePhone" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="OwnerHomePhone" id="OwnerHomePhone" value="@Model.OwnerHomePhone" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Mobile Phone:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("OwnerMobilePhone") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="OwnerMobilePhone" id="OwnerMobilePhone" value="@Model.OwnerMobilePhone" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="OwnerMobilePhone" id="OwnerMobilePhone" value="@Model.OwnerMobilePhone" class="myInput" />
+            } 
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Contact Preference:</div>
+            <div class="formfield"><input type="radio" name="OwnerContactPreference" id="OwnerContactPreference" value="Email" 
+                                          @if(Model.OwnerContactPreference == "Email")
+                                          {
+                                              @:checked="checked"
+                                          } /> Email &nbsp;&nbsp;&nbsp; <input type="radio" name="OwnerContactPreference" id="OwnerContactPreference" value="Mail" 
+                                          @if(Model.OwnerContactPreference == "Mail")
+                                          {
+                                              @:checked="checked"
+                                          } /> Mail</div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Street Address:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("OwnerStreetAddress") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="OwnerStreetAddress" id="OwnerStreetAddress" value="@Model.OwnerStreetAddress" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="OwnerStreetAddress" id="OwnerStreetAddress" value="@Model.OwnerStreetAddress" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">City:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("OwnerCity") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="OwnerCity" id="OwnerCity" value="@Model.OwnerCity" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="OwnerCity" id="OwnerCity" value="@Model.OwnerCity" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">State:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("OwnerState") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="OwnerState" id="OwnerState" value="@Model.OwnerState" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="OwnerState" id="OwnerState" value="@Model.OwnerState" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Zip Code:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("OwnerZipCode") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="OwnerZipCode" id="OwnerZipCode" value="@Model.OwnerZipCode" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="OwnerZipCode" id="OwnerZipCode" value="@Model.OwnerZipCode" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <h1>Additional Owner / Agent Contact Info</h1>
+
+            <div class="formlabel">First Name:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("AgentFirstName") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="AgentFirstName" id="AgentFirstName" value="@Model.AgentFirstName" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="AgentFirstName" id="AgentFirstName" value="@Model.AgentFirstName" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Middle Name:</div>
+            <div class="formfield"><input type="text" name="AgentMiddleName" id="AgentMiddleName" value="@Model.AgentMiddleName" class="myInput" /></div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Last Name:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("AgentLastName") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="AgentLastName" id="AgentLastName" value="@Model.AgentLastName" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="AgentLastName" id="AgentLastName" value="@Model.AgentLastName" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Title:</div>
+            <div class="formfield"><input type="text" name="AgentTitle" id="AgentTitle" value="@Model.AgentTitle" class="myInput" /></div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Email:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("AgentEmail") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="AgentEmail" id="AgentEmail" value="@Model.AgentEmail" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="AgentEmail" id="AgentEmail" value="@Model.AgentEmail" class="myInput" />
+            }    
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Mobile Phone:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("AgentMobilePhone") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="AgentMobilePhone" id="AgentMobilePhone" value="@Model.AgentMobilePhone" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="AgentMobilePhone" id="AgentMobilePhone" value="@Model.AgentMobilePhone" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Business Phone:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("AgentBusinessPhone") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="AgentBusinessPhone" id="AgentBusinessPhone" value="@Model.AgentBusinessPhone" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="AgentBusinessPhone" id="AgentBusinessPhone" value="@Model.AgentBusinessPhone" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Home Phone:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("AgentHomePhone") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="AgentHomePhone" id="AgentHomePhone" value="@Model.AgentHomePhone" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="AgentHomePhone" id="AgentHomePhone" value="@Model.AgentHomePhone" class="myInput" />
+            }
+            </div>  
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Contact Preference:</div>
+            <div class="formfield"><input type="radio" name="AgentContactPreference" id="AgentContactPreference" value="Email" 
+                                          @if(Model.AgentContactPreference == "Email")
+                                          {
+                                              @:checked="checked"
+                                          } /> Email &nbsp;&nbsp;&nbsp; <input type="radio" name="AgentContactPreference" id="AgentContactPreference" value="Mail" 
+                                          @if(Model.AgentContactPreference == "Mail")
+                                          {
+                                              @:checked="checked"
+                                          } /> Mail</div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Street Address:</div>
+            <div class="formfield"><input type="text" name="AgentStreetAddress" id="AgentStreetAddress" value="@Model.AgentStreetAddress" class="myInput" /></div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">City:</div>
+            <div class="formfield"><input type="text" name="AgentCity" id="AgentCity" value="@Model.AgentCity" class="myInput" /></div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">State:</div>
+            <div class="formfield"><input type="text" name="AgentState" id="AgentState" value="@Model.AgentState" class="myInput" /></div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Zip Code:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("AgentZipCode") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="AgentZipCode" id="AgentZipCode" value="@Model.AgentZipCode" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="AgentZipCode" id="AgentZipCode" value="@Model.AgentZipCode" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">Choose one:</div>
+            <div class="formfield"><input type="radio" name="ChooseOne" id="ChooseOne" value="Owner" 
+                                          @if(Model.ChooseOne == "Owner")
+                                          {
+                                              @:checked="checked"
+                                          } /> Business Owner &nbsp;&nbsp;&nbsp; <input type="radio" name="ChooseOne" id="ChooseOne" value="Agent" 
+                                          @if(Model.ChooseOne == "Agent")
+                                          {
+                                              @:checked="checked"
+                                          } /> Authorized Agent</div>
+            <div class="clear">&nbsp;</div>
+
+            <p>If your business is located in a residential area in the City of Encinitas, it is considered to be a Home Based Business and shall be permitted in compliance with the following conditions:</p>
+            <ul>
+                <li>There shall be no exterior evidence of the conduct of a home occupation out of character with the normally appropriate appearance of the dwelling.</li>
+                <li>A home occupation shall be conducted entirely within a dwelling or a garage.</li>
+                <li>Electrical or mechanical equipment which creates visible or audible interference in radio or television receivers or causes fluctuations in line voltage outside the dwelling shall be prohibited</li>
+                <li>Only the residents of the dwelling unit may be engaged in the home occupation except by temporary minor use permits</li>
+                <li>There shall be no on-premise sale of goods not produced on the premises.</li>
+                <li>The establishment and conduct of the home occupation shall not change the principal character or use of the dwelling unit involved</li>
+                <li>There shall be no signs other than those permitted by the sign ordinance (Municipal Code 30.60).</li>
+                <li>The required residential off street parking shall be maintained</li>
+                <li>A home occupation shall not create vehicular or pedestrian traffic in excess of that which is normal for the zone in which it is located.</li>
+            </ul>
+
+            <p>SB1186 Mandated Fee: On September 19, 2012 Governor Brown signed into law SB-1186 which adds a state fee of $1 on any applicant for a local business license or similar instrument or permit, or renewal therof.  The purpose is to increase disability access and compliance with construction-related accessibility requirements and to develop educational resources for businesses in order to facilitate compliance with federal and state disability laws, as specified.</p>
+
+            <p>Under federal and state law, compliance with disability access laws is a serious and significant responsibility that applies to all California building owners and tenants with buildings open to the public.  You may obtain information about your legal obligations and how to comply with disability access laws at the following agencies:</p>
+            <ul>
+                <li>The Division of the State Architect at www.dgs.ca.gov/dsa/Home.aspx</li>
+                <li>The California Department of Rehabilitation at www.rehab.cahwnet.gov</li>
+                <li>The California Commission on Disability Access at www.ccda.ca.gov</li>
+            </ul>
+            <p>I DECLARE, UNDER PENALTY OF PERJURY, THAT THE INFORMATION CONTAINED IN THIS APPLICATION IS TRUE AND CORRECT, AND THAT ALL REQUIRED LICENSES ARE IN FULL FORCE AND EFFECT  <input type="checkbox" name="Perjury" id="Perjury" 
+                                                                                                                                                                                               @if(Model.Perjury == "on")
+                                                                                                                                                                                               {
+                                                                                                                                                                                                   @:checked="checked"
+                                                                                                                                                                                               } /></p>
+            <div class="formlabel">Signature:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("Signature") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="Signature" id="Signature" value="@Model.Signature" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="Signature" id="Signature" value="@Model.Signature" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
+            <div class="formlabel">&nbsp;</div>
+            <div class="formfield"><button form="formSubmit">Submit Business Registration</button></div>
+        </form>
+    </div>
+</div>
