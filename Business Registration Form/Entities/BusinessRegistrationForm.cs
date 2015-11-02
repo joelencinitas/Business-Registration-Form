@@ -18,6 +18,7 @@ namespace Business_Registration_Form.Entities
         private string businessEmailAddress;
         private string businessPhone;
         private string businessDescription;
+        private string numberEmployees;
         private string businessContactPreference;
         private string dba;
         private string rentalBooth;
@@ -197,6 +198,19 @@ namespace Business_Registration_Form.Entities
             }
         }
 
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please Enter a valid number of employees")]
+        public string NumberEmployees
+        {
+            get
+            {
+                return numberEmployees;
+            }
+            set
+            {
+                numberEmployees = value;
+            }
+        }
+
         [Required(ErrorMessage = "A valid selection for Business Contact Preference is required")]
         public string BusinessContactPreference
         {
@@ -247,7 +261,7 @@ namespace Business_Registration_Form.Entities
                 homeBased = value;
             }
         }
-
+        
         [RegularExpression(@"^(?!00)[0-9]{2,2}$", ErrorMessage = "Please Enter a valid first portion of your EIN")]
         public string EIN1
         {

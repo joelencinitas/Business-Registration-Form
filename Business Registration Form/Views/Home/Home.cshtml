@@ -199,6 +199,19 @@
             <div class="formfield"><input type="text" name="BusinessDescription" id="BusinessDescription" value="@Model.BusinessDescription" class="myInput" /></div>
             <div class="clear">&nbsp;</div>
 
+            <div class="formlabel">Number of Employees in Encinitas:</div>
+            <div class="formfield">
+            @if (Html.ValidationMessage("NumberEmployees") != null && ViewBag.PostBack == 1)
+            {
+                <input type="text" name="NumberEmployees" id="NumberEmployees" value="@Model.NumberEmployees" class="myInput input-validation-error" />
+            }
+            else
+            {
+                <input type="text" name="NumberEmployees" id="NumberEmployees" value="@Model.NumberEmployees" class="myInput" />
+            }
+            </div>
+            <div class="clear">&nbsp;</div>
+
             <div class="formlabel">Contact Preference:</div>
             <div class="formfield"><input type="radio" name="BusinessContactPreference" id="BusinessContactPreference" value="Email"
                                           @if(Model.BusinessContactPreference == "Email")
